@@ -83,9 +83,7 @@ class NewsItem < ActiveRecord::Base
 end
 ```
 
-```
-app/views/news_items/_form.html.erb
-```
+`app/views/news_items/_form.html.erb`
 ```
   <%= form_for(@news_item, :html => {:multipart => true}) do |f| %>
   
@@ -97,9 +95,7 @@ app/views/news_items/_form.html.erb
   </p>
 ```
 
-```
-app/controllers/news_items_controller.rb
-```
+`app/controllers/news_items_controller.rb`
 ```
 def news_item_params
   params.require(:news_item).permit(:title, :sub_header, :content, :image)
@@ -116,30 +112,28 @@ And navigate your browser to `http://0.0.0.0:3000/news_items`
 ###Commit to git
 
 Time to commit to git again
-```
-.gitignore
-```
+`.gitignore`
 ```
 /public/uploads
 ```
 
+Then in the terminal
 ```
-git add .
-git commit -m 'added carrierwave'
-git push origin master
+$ git add .
+$ git commit -m 'added carrierwave'
+$ git push origin master
 ```
 
 Lets add some layout to the whole thing
 Lets start with the show page
 Make the image overlap the entire page and so we can scroll over it with our news article.
 
+`app/views/news_items/show.html.erb`
 ```html
 <%= image_tag @news_item.image_url.to_s, class: 'bg' %>
 ```
 
-```
-app/assets/stylesheets/news_items.scss
-```
+`app/assets/stylesheets/news_items.scss`
 ```css
 img.bg {
   min-height: 100%;
@@ -152,9 +146,8 @@ img.bg {
 }
 ```
 lets make a content div to contain our text
-```
-app/views/news_items/show.html.erb
-```
+
+`app/views/news_items/show.html.erb`
 ```
 <%= image_tag @news_item.image_url.to_s, class: 'bg' %>
 
@@ -168,10 +161,9 @@ app/views/news_items/show.html.erb
 ```
 and expand our css rules a little bit
 
-```
-app/assets/stylesheets/news_items.scss
-```
-```
+`app/assets/stylesheets/news_items.scss`
+
+````
 img.bg {
     min-height: 100%;
     min-width: 1024px;
@@ -198,13 +190,11 @@ img.bg {
 
 ###Adding [Cloudinary](http://cloudinary.com/documentation/rails_integration#getting_started_guide)
 
-```
-Gemfile
-```
+`Gemfile`
 ```
 gem 'cloudinary'
 ```
-
+Run bundle to install the new gem
 ```
 $ bundle
 ```
@@ -214,10 +204,7 @@ export CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f676
 ```
 
 Update the image uploader class to work with cloudinary
-
-```
-app/uploaders/image_uploader.rb
-```
+`app/uploaders/image_uploader.rb`
 ```ruby
 class ImageUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
@@ -226,9 +213,7 @@ end
 
 Voeg een thumbnail optie toe voor de homepage
 
-```
-app/uploaders/image_uploader.rb
-```
+`app/uploaders/image_uploader.rb`
 ```ruby
   version :thumbnail do
     eager
@@ -238,9 +223,7 @@ app/uploaders/image_uploader.rb
 ```
 
 change the homepage to display a overview of images
-```
-app/views/news_items/index.html.erb
-```
+`app/views/news_items/index.html.erb`
 ```
 <% @news_items.each do |news_item| %>
   <article>
