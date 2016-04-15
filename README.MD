@@ -33,8 +33,11 @@ We will start with a model for NewsItems
 
 ```
 $ rails g scaffold NewsItem title:string sub_header:text content:text
+$ rake db:create
+$ rake db:migrate
 ```
 
+###Adding Git
 This is as good a time as any to add Git to our project
 
 1. Go to Github.com and create a new repo there
@@ -44,15 +47,6 @@ This is as good a time as any to add Git to our project
 5. Commit this state of the project to your local repository with `git commit -m "first commit"`
 6. Add the Github repository as remote `git remote add origin git@github.com:hezus/oldnews.git`
 7. Push to the remote repository `git push -u origin master`
-
-Let us start our local server
-```
-$ rake db:create
-$ rake db:migrate
-$ rails s
-```
-
-And navigate your browser to `http://0.0.0.0:3000/news_items`
 
 ###Adding Carrierwave
 
@@ -114,6 +108,17 @@ def news_item_params
   params.require(:news_item).permit(:title, :sub_header, :content, :image)
 end
 ```
+
+Let us start our local server to check the progress
+```
+$ rails s
+```
+
+And navigate your browser to `http://0.0.0.0:3000/news_items`
+
+###Commit to git
+
+Time to commit to git again
 ```
 .gitignore
 ```
@@ -126,6 +131,7 @@ git add .
 git commit -m 'added carrierwave'
 git push origin master
 ```
+
 Lets add some layout to the whole thing
 Lets start with the show page
 Make the image overlap the entire page and so we can scroll over it with our news article.
