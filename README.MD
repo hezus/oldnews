@@ -1,15 +1,15 @@
-Oldnews
------------------
+#Oldnews
+
 
 Tutorial on using Carrierwave with Heroku and Cloudinary to create a simple news site.
 
-Intro
-===============================
-
+###Intro
 We are going to make a news site. It will display a list of news articles. Each article will have tags linked to it to categorise it.
 Each article will have a thumbnail and a full page image. We will use Carierwave to upload the files to our server.
 CarrierWave is more flexible than Paperclip. It is based on Rack.
 We will use the Cloudinary gem to upload files to their service and have a link to them.
+
+###Create a project
 
 Create a new rails project with postgres
 
@@ -54,8 +54,7 @@ $ rails s
 
 And navigate your browser to `http://0.0.0.0:3000/news_items`
 
-Adding Carrierwave
----------------
+###Adding Carrierwave
 
 Add carrierwave to our gemfile
 
@@ -193,7 +192,8 @@ img.bg {
   }
 ```
 
-http://cloudinary.com/documentation/rails_integration#getting_started_guide
+
+###Adding [Cloudinary](http://cloudinary.com/documentation/rails_integration#getting_started_guide)
 
 ```
 Gemfile
@@ -247,3 +247,9 @@ app/views/news_items/index.html.erb
   </article>
 <% end %>
 ```
+TODO: css
+
+Time for another commit to git after 
+```
+```
+
