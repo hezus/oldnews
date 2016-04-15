@@ -52,9 +52,8 @@ This is as good a time as any to add Git to our project
 
 Add carrierwave to our gemfile
 
-```
-Gemfile
-```
+
+`Gemfile`
 ```
 gem 'carrierwave'
 ```
@@ -77,9 +76,7 @@ $ rake db:migrate
 
 Open your model file and mount the uploader
 
-```
-app/models/news_item.rb
-```
+`app/models/news_item.rb`
 ```ruby
 class NewsItem < ActiveRecord::Base
   mount_uploader :image, ImageUploader
