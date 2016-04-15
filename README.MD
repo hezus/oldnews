@@ -114,3 +114,82 @@ git add .
 git commit -m 'added carrierwave'
 git push origin master
 ```
+Lets add some layout to the whole thing
+Lets start with the show page
+Make the image overlap the entire page and so we can scroll over it with our news article.
+
+```html
+<%= image_tag @news_item.image_url.to_s, class: 'bg' %>
+```
+
+```css
+img.bg {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+```
+lets make a content div to contain our text
+
+```
+<%= image_tag @news_item.image_url.to_s, class: 'bg' %>
+
+<div class="content">
+<h1><%= @news_item.title %></h1>
+<h2><%= @news_item.sub_header %></h2>
+<p>
+  <%= @news_item.content %>
+</p>
+</div>
+```
+and expand our css rules a little bit
+
+```
+img.bg {
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .content {
+    position: relative;
+    width: 500px;
+    margin: 50px auto;
+
+    padding: 20px;
+    background: white;
+    h1 {
+      font-size: 40px;
+      line-height: 50px;
+    }
+  }
+```
+
+http://cloudinary.com/documentation/rails_integration#getting_started_guide
+
+```
+gem 'cloudinary'
+```
+
+```
+$ bundle
+```
+Set the cloudinary URL 
+```
+export CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f676fe1@sample
+```
+
+Update the image uploader class to work with cloudinary
+
+```
+class ImageUploader < CarrierWave::Uploader::Base
+  include Cloudinary::CarrierWave
+end
+```

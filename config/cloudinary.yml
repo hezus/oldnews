@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: dc5luaxnm
+  api_key: '155958165849359'
+  api_secret: xDWpSM6tzX7-jAx-Rjz6srW_RH8
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: dc5luaxnm
+  api_key: '155958165849359'
+  api_secret: xDWpSM6tzX7-jAx-Rjz6srW_RH8
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: dc5luaxnm
+  api_key: '155958165849359'
+  api_secret: xDWpSM6tzX7-jAx-Rjz6srW_RH8
+  enhance_image_tag: true
+  static_image_support: false
