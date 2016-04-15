@@ -239,3 +239,19 @@ Time for another commit to git after
 ```
 ```
 
+### Add Heroku
+```
+$ heroku create
+```
+```
+$ git push heroku master
+```
+```
+$ heroku run rake db:migrate
+```
+```
+$ heroku restart
+```
+```
+$ heroku config:set CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f676fe1@sample
+```
