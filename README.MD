@@ -1,6 +1,5 @@
 #Oldnews
 
-
 Tutorial on using Carrierwave with Heroku and Cloudinary to create a simple news site.
 
 ###Intro
@@ -52,31 +51,36 @@ This is as good a time as any to add Git to our project
 
 Lets add [Carrierwave](https://github.com/carrierwaveuploader/carrierwave). Carrierwave is a way to handle fileuploads easy.
 You have to add the gem to your gemfile.
-
 `Gemfile`
 ```
 gem 'carrierwave'
 ```
-Then run `bundle` to install the gem. Carrierwave has generators that makes a uploader for us.
 
+
+Then run `bundle` to install the gem. Carrierwave has generators that makes a uploader for us.
 ```
 $ rails g uploader image
 	create  app/uploaders/image_uploader.rb
 ```
 The generator creates a new directory called `uploaders` under the app directory and in it a file called `image_uploader.rb`.
+
+
 We need to add the uploader to the `NewsItem` model. You add a column to the `news_items` table. 
 ```
 $ rails g migration add_image_to_news_items image:string
 $ rake db:migrate
 ```
-Open your model file add the mount_uploader method to use the `ImageUploader` we just generated.
 
+
+Open your model file add the mount_uploader method to use the `ImageUploader` we just generated.
 `app/models/news_item.rb`
 ```ruby
 class NewsItem < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 end
 ```
+
+
 You have to add a file_field to the form.
 `app/views/news_items/_form.html.erb`
 ```
@@ -86,6 +90,7 @@ You have to add a file_field to the form.
   </p>
 ```
 adding a file_field makes the form automatically add the html options `{:multipart => true}`
+
 
 You have to add the image to the controller permitted parameters
 `app/controllers/news_items_controller.rb`
@@ -99,12 +104,13 @@ TODO: something about params hash
 
 Add some layout to the whole thing. After the create, the app redirects you to the show action. 
 Make the image span the entire page and so we can scroll over it with our news article.
-
 `app/views/news_items/show.html.erb`
 ```html
 <%= image_tag @news_item.image_url.to_s, class: 'bg' %>
 ```
 
+
+Add css to make the image span the entire page
 `app/assets/stylesheets/news_items.scss`
 ```css
 img.bg {
@@ -117,6 +123,7 @@ img.bg {
   left: 0;
 }
 ```
+
 
 Off course the news text needs to be displayed aswell.
 `app/views/news_items/show.html.erb`
@@ -131,10 +138,10 @@ Off course the news text needs to be displayed aswell.
 </p>
 </div>
 ```
+
+
 and expand the CSS rules for the content
-
 `app/assets/stylesheets/news_items.scss`
-
 ````
 img.bg {
     min-height: 100%;
@@ -159,8 +166,8 @@ img.bg {
   }
 ```
 
-Time to start your local server to check the progress.
 
+Time to start your local server to check the progress.
 ```
 $ rails s
 ```
@@ -173,6 +180,7 @@ Time to commit to git again. The uploads directory should be added to the git ig
 ```
 /public/uploads
 ```
+
 
 Then in the terminal
 ```
@@ -187,15 +195,18 @@ Carrierwave is nice, but if you deploy to a service like Heroku, it will not wor
 You upload the files to their servers so they don't disappear after reboot.
 
 Start by making a account on cloudinary.com and then adding the gem to the gemfile.
-
 `Gemfile`
 ```
 gem 'cloudinary'
 ```
+
+
 Run bundle to install the new gem
 ```
 $ bundle
 ```
+
+
 Update the image uploader class to work with cloudinary
 `app/uploaders/image_uploader.rb`
 ```ruby
@@ -205,6 +216,7 @@ end
 ```
 TODO: include
 
+
 Set the cloudinary URL in the terminal 
 ```
 $ export CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f676fe1@sample
@@ -212,6 +224,7 @@ $ export CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f6
 TODO: environment variables
 
 You can test your progress.
+
 
 Voeg een thumbnail optie toe voor de homepage
 `app/uploaders/image_uploader.rb`
@@ -223,7 +236,7 @@ Voeg een thumbnail optie toe voor de homepage
   end
 ```
 
-change the homepage to display a overview of images
+Change the homepage to display a overview of images
 `app/views/news_items/index.html.erb`
 ``` html
 <h1>News!</h1>
@@ -235,6 +248,8 @@ change the homepage to display a overview of images
     </a>
 <% end %>
 ```
+
+
 And add some css to make it look slightly better.
 ```css
 .summary{
@@ -253,12 +268,20 @@ And add some css to make it look slightly better.
   }
 }
 ```
+
+
 Add the routes file
 `config/routes.rb`
 ```ruby
 root 'news_items#index'
 ```
+
+
 Time for another commit to git
+```
+$ git push origin master
+```
+
 
 ### Add Heroku
 ```
