@@ -1,7 +1,8 @@
+<h1>News!</h1>
 <% @news_items.each do |news_item| %>
-  <article>
-    <%= image_tag(news_item.image.thumbnail.url, :class => "thumbnail inline") %>
-    <h2><%= news_item.title %></h2>
-    <h3><%= news_item.sub_header %></h3>
-  </article>
+    <a href="<%= news_item_path news_item%>" class="summary">
+      <%= image_tag(news_item.image.thumbnail.url, :class => "thumbnail inline") %>
+      <h2><%= news_item.title %></h2>
+      <h3><%= news_item.sub_header %></h3>
+    </a>
 <% end %>

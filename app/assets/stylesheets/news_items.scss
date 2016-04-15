@@ -24,3 +24,18 @@ article {
     }
   }
 }
+.summary{
+  background: none;
+  text-decoration: none;
+  width: 300px;
+  height: 350px;
+  overflow: hidden;
+  float: left;
+  &:hover{
+    background: none;
+    text-decoration: none;
+    h2, h3{
+      color: black;
+    }
+  }
+}
