@@ -108,3 +108,9 @@ end
 ```.gitignore
 /public/uploads
 ```
+
+```
+git add .
+git commit -m 'added carrierwave'
+git push origin master
+```
