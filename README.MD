@@ -59,8 +59,10 @@ Adding Carrierwave
 
 Add carrierwave to our gemfile
 
-
-```gemfile.rb
+```
+Gemfile
+```
+```
 gem 'carrierwave'
 ```
 
@@ -82,12 +84,18 @@ $ rake db:migrate
 
 Open your model file and mount the uploader
 
+```
+app/models/news_item.rb
+```
 ```ruby
 class NewsItem < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 end
 ```
 
+```
+app/views/news_items/_form.html.erb
+```
 ```
   <%= form_for(@news_item, :html => {:multipart => true}) do |f| %>
   
@@ -100,12 +108,17 @@ end
 ```
 
 ```
+app/controllers/news_items_controller.rb
+```
+```
 def news_item_params
   params.require(:news_item).permit(:title, :sub_header, :content, :image)
 end
 ```
-
-```.gitignore
+```
+.gitignore
+```
+```
 /public/uploads
 ```
 
@@ -122,6 +135,9 @@ Make the image overlap the entire page and so we can scroll over it with our new
 <%= image_tag @news_item.image_url.to_s, class: 'bg' %>
 ```
 
+```
+app/assets/stylesheets/news_items.scss
+```
 ```css
 img.bg {
   min-height: 100%;
@@ -134,7 +150,9 @@ img.bg {
 }
 ```
 lets make a content div to contain our text
-
+```
+app/views/news_items/show.html.erb
+```
 ```
 <%= image_tag @news_item.image_url.to_s, class: 'bg' %>
 
@@ -148,6 +166,9 @@ lets make a content div to contain our text
 ```
 and expand our css rules a little bit
 
+```
+app/assets/stylesheets/news_items.scss
+```
 ```
 img.bg {
     min-height: 100%;
@@ -175,6 +196,9 @@ img.bg {
 http://cloudinary.com/documentation/rails_integration#getting_started_guide
 
 ```
+Gemfile
+```
+```
 gem 'cloudinary'
 ```
 
@@ -189,7 +213,37 @@ export CLOUDINARY_URL=cloudinary://874837483274837:a676b67565c6767a6767d6767f676
 Update the image uploader class to work with cloudinary
 
 ```
+app/uploaders/image_uploader.rb
+```
+```ruby
 class ImageUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
 end
+```
+
+Voeg een thumbnail optie toe voor de homepage
+
+```
+app/uploaders/image_uploader.rb
+```
+```ruby
+  version :thumbnail do
+    eager
+    resize_to_fit(300, 300)
+    cloudinary_transformation :quality => 80
+  end
+```
+
+change the homepage to display a overview of images
+```
+app/views/news_items/index.html.erb
+```
+```
+<% @news_items.each do |news_item| %>
+  <article>
+    <%= image_tag(news_item.image.thumbnail.url, :class => "thumbnail inline") %>
+    <h2><%= news_item.title %></h2>
+    <h3><%= news_item.sub_header %></h3>
+  </article>
+<% end %>
 ```
